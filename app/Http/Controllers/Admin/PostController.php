@@ -65,7 +65,13 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $data = $request->validated();
+        $slug = Str::slug($data['title']);
+        $data['slug'] = $slug;
+        $data['user_id'] = $post->user_id;
+        $post->update();
+        return redirect()->route('admin.posts.show', $post);
+
     }
 
     /**
@@ -73,6 +79,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('message', 'Post deleted successfully');
     }
 }
