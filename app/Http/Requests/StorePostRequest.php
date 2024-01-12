@@ -11,7 +11,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'min:3', 'max:200', 'unique:posts'],
+            'body' => ['nullable'],
+            'image' => ['nullable', 'url'],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'The title field is required.',
+            'title.min' => 'The title must be at least :min characters.',
+            'title.max' => 'The title must not be greater than :max characters.',
+            'title.unique' => 'The title is already used.',
+            'image.url' => 'The image must be a valid URL.',
         ];
     }
 }
