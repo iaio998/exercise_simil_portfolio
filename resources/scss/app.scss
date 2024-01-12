@@ -12,3 +12,10 @@ $fa-font-path: "../fonts/webfonts" !default;
 h1 {
     color: $text-color;
 }
+.img-cont{
+    img{
+        width: 100%;
+        height: 100%;
+       
+    }
+}
